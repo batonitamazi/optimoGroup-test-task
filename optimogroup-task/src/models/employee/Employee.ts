@@ -10,6 +10,4 @@ export class Employee extends Resource {
     avatar: File[] | any 
     jobId: Job | any
     locationId: Locations | any 
-
-    
 }

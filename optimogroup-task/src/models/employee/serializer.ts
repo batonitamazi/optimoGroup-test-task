@@ -1,4 +1,5 @@
 import { JobSerializer } from "../job/serializer";
+import { jobService } from "../job/service";
 import { LocationSerializer } from "../location/serializer";
 import { Serializer } from "../serializer";
 import { Employee } from "./Employee";
@@ -10,24 +11,19 @@ export class EmployeeSerializer implements Serializer {
     fromJson (json: any) {
         const employee = new Employee()
         employee.id = json.id
-        employee.name = json.name 
+        employee.name = json.name
+        employee.avatar = `https://test-task-api-optimo.herokuapp.com${json.avatar}`
         employee.like = json.liked
         employee.description = json.description
-        employee.avatar = json.avatar
-        if(json.job_id){
-            const jobSerializer = new JobSerializer()
-            employee.jobId = jobSerializer.fromJson(json.job_id)
-        }
-        if(json.location_id){
-            const locationSerializer = new LocationSerializer()
-            employee.locationId = locationSerializer.fromJson(json.location)
-        }
-        console.log(employee)
+        employee.jobId = json.job_id
+        employee.locationId = json.location_id
+        console.log(employee.avatar)
         return employee
     }
 
     toJson(item: Employee) {
         
-    }
+}
 
 }
+
