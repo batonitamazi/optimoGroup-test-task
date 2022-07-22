@@ -5,7 +5,7 @@ export class LocationSerializer implements Serializer {
     fromJson(json: any) {
         const location = new Locations()
         location.id = json.id      
-        location.name = json.name        
+        location.name = json.name       
         return location
     }
 

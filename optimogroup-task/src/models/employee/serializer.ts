@@ -9,18 +9,20 @@ export class EmployeeSerializer implements Serializer {
 
     fromJson (json: any) {
         const employee = new Employee()
+        employee.id = json.id
         employee.name = json.name 
-        employee.like = json.like 
-        employee.description = json.employee 
+        employee.like = json.liked
+        employee.description = json.description
         employee.avatar = json.avatar
-        if(json.jobId){
+        if(json.job_id){
             const jobSerializer = new JobSerializer()
-            employee.jobId = jobSerializer.fromJson(json.jobId)
+            employee.jobId = jobSerializer.fromJson(json.job_id)
         }
-        if(json.locationId){
-            const locatinSerializer = new LocationSerializer()
-            employee.locationId = locatinSerializer.fromJson(json.locationId)
+        if(json.location_id){
+            const locationSerializer = new LocationSerializer()
+            employee.locationId = locationSerializer.fromJson(json.location)
         }
+        console.log(employee)
         return employee
     }
 

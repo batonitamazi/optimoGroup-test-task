@@ -1,3 +1,3 @@
 export class Resource {
-    id: string | any 
+    id: BigInteger | any 
 }
