@@ -42,7 +42,8 @@ function EmployeesPage() {
   }, [])
   return (
     <>
-      <Grid container spacing={0} sx={{ pb: 7 }}>
+    
+      <Grid container spacing={0} sx={{ pb: 7,  pt: 7 }}>
         <Grid item xs={12} lg={3} style={{ padding: 20 }} >
           {employees.map((employee,) => {
             // console.log(employee.avatar)
@@ -82,7 +83,6 @@ function EmployeesPage() {
                     )
                   })}
                 </CardActions>
-
               </Card>
             )
           })}
