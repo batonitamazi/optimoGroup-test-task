@@ -7,20 +7,19 @@ import { Form, Formik } from 'formik';
 
 interface feedbackFormProps {
     open: boolean,
-    item: FeedBack | any,
     handleDialog: Function | any,
-
+    name: String
 }
 
 function FeedBackForm(props: feedbackFormProps) {
-    const { open, handleDialog, item } = props
+    const { open, handleDialog, name } = props
 
     const getValues = (values: any) => {
         const feedback = new FeedBack()
         feedback.name = values.name
         feedback.email = values.email
         feedback.message = values.message
-        FeedBackService.create(feedback).then((r: FeedBack) => {
+        FeedBackService.create(feedback).then((r: any) => {
             handleDialog(false)
         })
 
@@ -33,7 +32,7 @@ function FeedBackForm(props: feedbackFormProps) {
                     style={{ position: "absolute", right: 10, top: 10, cursor: "pointer" }}>
                     <CloseIcon />
                 </div>
-                <Formik initialValues={{ name: '', email: '', message: '', }}   
+                <Formik initialValues={{ name: name, email: '', message: '', }}
                     onSubmit={getValues}>
                     {({ values, handleSubmit, setFieldValue, handleChange, handleBlur, errors }: any) => (
                         <Form onSubmit={(values) => {
@@ -56,11 +55,12 @@ function FeedBackForm(props: feedbackFormProps) {
                                     fullWidth
                                     onChange={(event: any) => {
                                         setFieldValue("name", event.target.value)
-    
+
                                     }}
                                     variant='standard'
                                 />
                                 <TextField
+                                    required
                                     autoFocus
                                     margin="dense"
                                     id="email"
@@ -70,31 +70,32 @@ function FeedBackForm(props: feedbackFormProps) {
                                     fullWidth
                                     onChange={(event: any) => {
                                         setFieldValue("email", event.target.value)
-    
+
                                     }}
                                     variant='standard'
                                 />
                                 <TextField
+                                    required
                                     autoFocus
                                     margin="dense"
                                     id="message"
-                                    label="message"
+                                    label="your message"
                                     value={values.message}
                                     type="text"
+                                    fullWidth
                                     onChange={(event: any) => {
                                         setFieldValue("message", event.target.value)
-    
+
                                     }}
-                                    fullWidth
                                     variant='standard'
                                 />
                             </DialogContent>
                             <DialogActions>
                                 <Button onClick={() => handleDialog(false)}>Cancel</Button>
                                 <Button type="submit"
-                                onClick={() =>
-                                 console.log(values)
-                                }
+                                    onClick={() =>
+                                        console.log(values)
+                                    }
                                 >Submit</Button>
                             </DialogActions>
                         </Form>

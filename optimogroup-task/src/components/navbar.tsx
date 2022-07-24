@@ -67,7 +67,7 @@ const Navbar = () => {
               }}>MainPage</MenuItem>
               <MenuItem
                 onClick={() => {
-                  navigate('/employees')
+                  navigate('/employee')
                 }}>Employees</MenuItem>
               <MenuItem onClick={() => {
                 navigate(`/feedback`)
@@ -80,7 +80,7 @@ const Navbar = () => {
                 navigate('/')
               }}>MainPage</Button>
             <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => {
-                  navigate('/employees')
+                  navigate('/employee')
                 }}>Employees</Button>
             <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => {
                 navigate(`/feedback`)

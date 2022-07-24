@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Box, Button, CardMedia, Grid, IconButton, Stack } from '@mui/material';
+import { Box, Button, CardMedia, Grid, IconButton} from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Job } from '../models/job/Job';
 import { jobService } from '../models/job/service';
@@ -43,50 +43,44 @@ function EmployeesPage() {
       setLocations(r.results)
     })
   }
-
   useEffect(() => {
     getEmployees();
     getJobs();
     getLocations();
-
   }, [])
   return (
     <>
-      <Grid item xs={12} lg={2} style={{ padding: 20 }}>
-        <FeedBackForm
-          open={open}
-          item={feedback}
-          handleDialog={(bool: any) => setOpen(bool)}
-        />
-      </Grid>
+     
       <Box sx={{ pb: 7, pt: 7 }}>
         <Grid container spacing={4} >
           {employees.map((employee,) => {
             return (
-              <Grid item xs={4}>
-                <Card sx={{ minWidth: 100, minHeight: 200 }} key={employee.id}
+              <Grid item xs={4} >
+                <Card sx={{ minWidth: 100, minHeight: 200 }}
+                  key={employee.id}
                 >
                   <CardMedia
                     component="img"
                     height="500"
                     image={employee.avatar}
+                    key={employee.avatar}
                     alt="Paella dish"
-                    // sx={{cursor: 'pointer'}}
-                    // onClick={() => { navigate(`/employee/${employee.id}`) }}
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => {navigate(`/employee/${employee.id}`) }}
 
                   />
 
-                  <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                  <CardContent >
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" key={employee.name}>
                       {employee.name}
                     </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary" key={employee.description}>
                       {employee.description}
                     </Typography>
 
                   </CardContent>
                   <CardActions>
-                    <Typography> {employee.like}</Typography>
+                    <Typography key={employee.like}> {employee.like}</Typography>
 
                     <IconButton aria-label="add to favorites">
                       <FavoriteIcon sx={{ color: pink[500] }} />
@@ -108,13 +102,7 @@ function EmployeesPage() {
                         </>
                       )
                     })}
-                    <Button
-                      onClick={() => {
-                        setFeedback(null);
-                        setOpen(true);
-                      }}
-
-                    ><FeedbackIcon /></Button>
+                    
 
                   </CardActions>
                 </Card>

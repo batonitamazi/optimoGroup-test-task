@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Employee } from '../models/employee/Employee'
-import { EmployeeService } from '../models/employee/service'
+import React  from 'react'
 
 
 
 function MainPage() {
-  const [employees, setEmployees] = useState<Employee[]>([])
-
-
-  
-
-
   return (
 
     <div>MainPage</div>

@@ -15,8 +15,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/employees" element={<EmployeesPage />} />
-        <Route path="/employees/:id" element={<EmployeePage />} />
+        <Route path="/employee" element={<EmployeesPage />} />
+        <Route path="/employee/:id" element={<EmployeePage />} />
         <Route path="/feedback" element={<FeedbackPage />} />
       </Routes>
       <Footer />
