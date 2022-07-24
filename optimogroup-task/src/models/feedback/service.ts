@@ -7,7 +7,7 @@ import { FeedBackSerializer } from "./serializer"
 
 export class FeedBackProvider extends ResourceProvider<FeedBack> {
     constructor() {
-        super("/feedback", new FeedBackSerializer())
+        super("feedback", new FeedBackSerializer())
     }
 }
 

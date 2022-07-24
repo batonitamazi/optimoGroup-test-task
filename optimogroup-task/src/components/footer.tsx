@@ -5,7 +5,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { createTheme } from '@mui/material';
+import { createTheme, Paper } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 
 const theme = createTheme({
@@ -28,17 +28,13 @@ const theme = createTheme({
 export default function Footer() {
 
     return (
-        <ThemeProvider theme={theme} >
-            <Box sx={{
-                width: '100%', bottom: 0, position: 'fixed',
-                bg: 'background.paper',
-                color: 'text.primary'
-            }}>
-                <BottomNavigation
-                    showLabels
-                >
-                </BottomNavigation>
-            </Box>
+        <ThemeProvider theme={theme}>
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+                    <BottomNavigation
+                        showLabels
+                    >
+                    </BottomNavigation>
+            </Paper>
         </ThemeProvider>
     );
 }

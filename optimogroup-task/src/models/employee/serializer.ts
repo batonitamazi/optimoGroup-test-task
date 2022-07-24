@@ -17,7 +17,6 @@ export class EmployeeSerializer implements Serializer {
         employee.description = json.description
         employee.jobId = json.job_id
         employee.locationId = json.location_id
-        console.log(employee.avatar)
         return employee
     }
 
