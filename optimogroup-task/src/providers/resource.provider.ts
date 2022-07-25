@@ -7,7 +7,6 @@ export class ResourceProvider<T extends Resource> {
   constructor(public endpoint: string, public serializer: Serializer) { }
 
 
-
   public list = async () => new Promise((resolve, reject) => {
     axios.get(`${environment.basePath}/${this.endpoint}`)
       .then((resp) =>

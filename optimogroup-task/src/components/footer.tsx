@@ -1,20 +1,19 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { createTheme, Paper } from '@mui/material';
+import { BottomNavigationAction, createTheme, Paper, Typography } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 const theme = createTheme({
     palette: {
         background: {
-            paper: '#D3D3D3',
+            paper: '#009688',
         },
         text: {
-            primary: '#173A5E',
+            primary: '#e1f5fe',
             secondary: '#46505A',
         },
         action: {
@@ -23,18 +22,35 @@ const theme = createTheme({
     },
 });
 
-
+function Copyright() {
+    return (
+        <Typography variant="body2" color="text.secondary" align="center">
+            {'Copyright © '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
 
 export default function Footer() {
 
     return (
+
         <ThemeProvider theme={theme}>
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-                    <BottomNavigation
-                        showLabels
-                    >
-                    </BottomNavigation>
-            </Paper>
+            <Box sx={{ bgcolor: 'background.paper', p: 6, bottom: 0 }} component="footer">
+                <Typography variant="h6" align="center" gutterBottom>
+                    Company Name
+                </Typography>
+                <Typography
+                    variant="subtitle1"
+                    align="center"
+                    color="text.secondary"
+                    component="p"
+                >
+                    From Error to Error one finds the entire truth
+                </Typography>
+                <Copyright />
+            </Box>
         </ThemeProvider>
     );
 }
