@@ -27,7 +27,7 @@ function EmployeesPage() {
   const [locations, setLocations] = useState<Locations[]>([])
   const [sortAsc, setSortAsc] = useState(false)
   const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([])
-  
+
 
   const getEmployees = () => {
     EmployeeService.list().then((r: any) => {
@@ -57,8 +57,8 @@ function EmployeesPage() {
   }
 
   function filterLocation(event: any) {
-     event.preventDefault();
-     const locationsValue = locations.findIndex(loc => event.target.value === loc.name) + 1;
+    event.preventDefault();
+    const locationsValue = locations.findIndex(loc => event.target.value === loc.name) + 1;
     setFilteredEmployees(
       filteredEmployees.filter((employee) => {
         return (employee.locationId === locationsValue)
@@ -91,56 +91,105 @@ function EmployeesPage() {
     getLocations();
   }, [])
 
-  
-  
+
+
 
   return (
     <>
       <ThemeProvider theme={theme}>
-      <CssBaseline />
+        <CssBaseline />
         <Box sx={{ pb: 15, pt: 10 }}>
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
+          <Box
+            sx={{
+              bgcolor: 'background.paper',
+              pt: 8,
+              pb: 6,
+            }}
+          >
+            <Container maxWidth="sm">
+              <Typography
+                component="h1"
+                variant="h2"
+                align="center"
+                color="text.primary"
+                gutterBottom
+              >
+                Our Employees
+              </Typography>
+              <Typography variant="h5" align="center" color="text.secondary" paragraph>
+                Here is a list, where are our employees, you can visit them by clicking button See
+                and you can also provide Feedback about them and their work,
+              </Typography>
+              <Stack
+                sx={{ pt: 4 }}
+                direction="row"
+                spacing={2}
+                justifyContent="center"
+              >
+                <Button sx={{bgcolor: '#009688'}}variant="contained" onClick={() => navigate('/feedback')}>Individual Feedback</Button>
+                <Button sx={{color: '#009688'}} variant="outlined" onClick={() => navigate('/')}>MainPage</Button>
+              </Stack>
+            </Container>
+          </Box>
+          
+          <Container sx={{ py: 8 }} maxWidth="lg">
+          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Container
+              sx={{
+                my: 8,
+                mx: 4,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-evenly'
+              }}
             >
-              Our Employees
-            </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Here is a list, where are our employees, you can visit them by clicking button See 
-              and you can also provide Feedback about them and their work,
-            </Typography>
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
-              <Button variant="contained" onClick={() => navigate('/feedback')}>Individual Feedback</Button>
-              <Button variant="outlined" onClick={() => navigate('/')}>MainPage</Button>
-            </Stack>
-          </Container>
-        </Box>
-        <Container sx={{py: 8}} maxWidth="lg">
-        <Grid container spacing={4}>
-            {filteredEmployees.map((employee) => {
-              return (
-                <Grid item xs={12} lg={4} md={3}>
-                  <Card 
-                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                    key={employee.id}
-                  >
-                    <CardMedia
+              <Button onClick={handleSort} sx={{ color: '#212121' }}>
+                {sortAsc ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+                <SortIcon />
+                sort
+              </Button>
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  sx={{ color: '#fff3e0', mt: 2 }}
+                  label="Location"
+                  value={jobs}
+                  onChange={filterJob}
+                  helperText="Filter by job position"
+                >
+                  {jobs.map((option) => (
+                    <MenuItem key={option.id} value={option.name}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  sx={{ color: '#fff3e0', mt: 2 }}
+                  label="Job"
+                  value={locations}
+                  onChange={filterLocation}
+                  helperText="Filter by Location"
+                >
+                  {locations.map((opt) => (
+                    <MenuItem key={opt.id} value={opt.name}>
+                      {opt.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+            </Container>
+          </Grid>
+            <Grid container spacing={4}>
+              {filteredEmployees.map((employee) => {
+                return (
+                  <Grid item xs={12} lg={4} md={3}>
+                    <Card
+                      sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                      key={employee.id}
+                    >
+                      <CardMedia
                         component="img"
                         height="400"
                         image={employee.avatar}
@@ -148,85 +197,43 @@ function EmployeesPage() {
                         alt="Paella dish"
                         sx={{ borderRadius: 4 }}
                       />
-                    <CardContent sx={{flexGrow: 1}}>
-                      <Typography  gutterBottom variant="h5" component="h2" key={employee.name}>
-                        {employee.name}
-                      </Typography>
-                      <Typography gutterBottom variant="h6" component="h2" color="text.secondary" key={employee.description}>
-                        {employee.description}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Typography key={employee.like}>{employee.like}</Typography>
-                      <IconButton aria-label="add to favorites">
-                        <FavoriteIcon sx={{ color: pink[500] }} />
-                      </IconButton>
-                      {jobs.filter((job) => job.id === employee.jobId).map((result) => {
-                        return (
-                          <>
-                            <WorkIcon sx={{color: '#212121'}} />
-                            <Typography key={result.id}>{result.name}</Typography>
-                          </>
-                        )
-                      })}
-                      {locations.filter((loc) => loc.id === employee.locationId).map((result) => {
-                        return (
-                          <>
-                            <LocationOnIcon sx={{color: pink[500]}} />
-                            <Typography key={result.id}>{result.name}</Typography>
-                          </>
-                        )
-                      })}
-                      <Button variant="contained" sx={{color: '#80cbc4' }} size="small">View</Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              )
-            })}
-          </Grid>
-        </Container>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button onClick={handleSort} sx={{ color: '#fff3e0' }}>
-              {sortAsc ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-              <SortIcon />
-              sort
-            </Button>
-            <Box sx={{ pl: 15, }}>
-              <TextField
-                id="outlined-select-currency"
-                select
-                sx={{ color: '#fff3e0' }}
-                label="Select"
-                value={jobs}
-                onChange={filterJob}
-                helperText="Filter by job position"
-              >
-                {jobs.map((option) => (
-                  <MenuItem key={option.id} value={option.name}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Box>
-            <Box sx={{ pl: 15, }}>
-              <TextField
-                id="outlined-select-currency"
-                select
-                sx={{ color: '#fff3e0' }}
-                label="Select"
-                value={locations}
-                onChange={filterLocation}
-                helperText="Filter by Location"
-              >
-                {locations.map((opt) => (
-                  <MenuItem key={opt.id} value={opt.name}>
-                    {opt.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Box>
-          </Box>
-          
+                      <CardContent sx={{ flexGrow: 1 }}>
+                        <Typography gutterBottom variant="h5" component="h2" key={employee.name}>
+                          {employee.name}
+                        </Typography>
+                        <Typography gutterBottom variant="h6" component="h2" color="text.secondary" key={employee.description}>
+                          {employee.description}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Typography key={employee.like}>{employee.like}</Typography>
+                        <IconButton aria-label="add to favorites">
+                          <FavoriteIcon sx={{ color: pink[500] }} />
+                        </IconButton>
+                        {jobs.filter((job) => job.id === employee.jobId).map((result) => {
+                          return (
+                            <>
+                              <WorkIcon sx={{ color: '#212121' }} />
+                              <Typography key={result.id}>{result.name}</Typography>
+                            </>
+                          )
+                        })}
+                        {locations.filter((loc) => loc.id === employee.locationId).map((result) => {
+                          return (
+                            <>
+                              <LocationOnIcon sx={{ color: pink[500] }} />
+                              <Typography key={result.id}>{result.name}</Typography>
+                            </>
+                          )
+                        })}
+                        <Button variant="contained" sx={{bgcolor: '#009688' }} size="small" onClick={()=>navigate(`${employee.id}`)}>View</Button>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                )
+              })}
+            </Grid>
+          </Container>
         </Box>
       </ThemeProvider>
     </>

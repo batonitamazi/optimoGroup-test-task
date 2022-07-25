@@ -4,6 +4,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { Form, Formik } from 'formik';
 import { FeedBackService } from '../models/feedback/service';
 import { FeedBack } from '../models/feedback/feedback';
+import Typography from '@mui/material/Typography';
+
 
 
 function FeedbackPage() {
@@ -20,13 +22,11 @@ function FeedbackPage() {
   return (
     <>
       <Grid container
-        spacing={0}
         direction="column"
         alignItems="center"
         justifyContent="center"
         sx={{ pt: 30, pb: 7 }}
       >
-
         <Box>
           <Grid container spacing={4}>
             <Formik initialValues={{ name: '', email: '', message: '', }}
@@ -37,64 +37,69 @@ function FeedbackPage() {
                   handleSubmit(values)
                 }}>
                   <Paper>
-                    <DialogTitle>FeedBack:</DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>
-                        Please Provide FeedBack for Employee
-                      </DialogContentText>
-                      <TextField
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} md={12} sm={12}>
+                        <Typography variant="h3" align="center">
+                          Feedback  
+                        </Typography>
+                        <DialogContent>
+                          <DialogContentText>
+                            Please Provide FeedBack for Employee
+                          </DialogContentText>
+                          <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="name"
+                            value={values.name}
+                            type="text"
+                            fullWidth
+                            inputProps={
+                              { readOnly: true, }
+                            }
+                            variant='standard'
+                          />
+                          <TextField
+                            required
+                            autoFocus
+                            margin="dense"
+                            id="email"
+                            label="your email"
+                            value={values.email}
+                            type="text"
+                            fullWidth
+                            onChange={(event: any) => {
+                              setFieldValue("email", event.target.value)
 
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="name"
-                        value={values.name}
-                        type="text"
-                        fullWidth
-                        inputProps={
-                          { readOnly: true, }
-                        }
-                        variant='standard'
-                      />
-                      <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="email"
-                        label="your email"
-                        value={values.email}
-                        type="text"
-                        fullWidth
-                        onChange={(event: any) => {
-                          setFieldValue("email", event.target.value)
+                            }}
+                            variant='standard'
+                          />
+                          <TextField
+                            required
+                            autoFocus
+                            margin="dense"
+                            id="message"
+                            label="message"
+                            value={values.message}
+                            type="text"
+                            onChange={(event: any) => {
+                              setFieldValue("message", event.target.value)
 
-                        }}
-                        variant='standard'
-                      />
-                      <TextField
-                        required
-                        autoFocus
-                        margin="dense"
-                        id="message"
-                        label="message"
-                        value={values.message}
-                        type="text"
-                        onChange={(event: any) => {
-                          setFieldValue("message", event.target.value)
-
-                        }}
-                        fullWidth
-                        variant='standard'
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button>Cancel</Button>
-                      <Button type="submit"
-                        onClick={() =>
-                          console.log(values)
-                        }
-                      >Submit</Button>
-                    </DialogActions>
+                            }}
+                            fullWidth
+                            variant='standard'
+                          />
+                        </DialogContent>
+                        <DialogActions>
+                          <Button>Cancel</Button>
+                          <Button type="submit"
+                            onClick={() =>
+                              console.log(values)
+                            }
+                          >Submit</Button>
+                        </DialogActions>
+                      </Grid>
+                    </Grid>
                   </Paper>
                 </Form>
               )}
