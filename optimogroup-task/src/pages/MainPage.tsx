@@ -1,7 +1,6 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import myteam from '../myteam.jpg';
 
 function MainPage() {
   const navigate = useNavigate();

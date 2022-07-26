@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Box, Button, CardMedia, Grid, IconButton, } from '@mui/material';
+import {Button, CardMedia, Grid, IconButton, } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import { pink } from '@mui/material/colors';
@@ -11,7 +11,6 @@ import { Employee } from '../models/employee/Employee';
 import { EmployeeService } from '../models/employee/service';
 import { useParams } from 'react-router-dom';
 import FeedBackForm from '../components/feedbackForm';
-import { FeedBack } from '../models/feedback/feedback';
 import WorkIcon from '@mui/icons-material/Work';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { jobService } from '../models/job/service';
@@ -48,7 +47,7 @@ function EmployeePage() {
     loadEmployee(id)
     getJobs();
     getLocations();
-  }, [])
+  }, [id])
   return (
     <>
       <Grid item xs={12} lg={2} style={{ padding: 20 }}>
@@ -63,7 +62,7 @@ function EmployeePage() {
         alignItems="center"
         justifyContent="center"
         sx={{ pt: 10, pb: 7 }} >
-        <Grid item spacing={4} xs={4} lg={12} md={6}>
+        <Grid item  xs={4} lg={12} md={6}>
           <Card sx={{ minWidth: 200, minHeight: 200, bgcolor: '#009688' }}
           >
             <CardMedia
@@ -73,7 +72,6 @@ function EmployeePage() {
               image={employee?.avatar}
               alt="Paella dish"
             />
-
             <CardContent >
               <Typography sx={{ fontSize: 14 }} color="text.secondary">
                 {employee?.name}
@@ -96,7 +94,6 @@ function EmployeePage() {
                 </Typography>
 
                 {jobs.filter((job) => job.id === employee?.jobId).map((result) => {
-                  console.log(result.name)
                   return (
                     <>
                       <Typography key={result.id}>{result.name}</Typography>

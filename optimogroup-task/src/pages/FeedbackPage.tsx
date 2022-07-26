@@ -1,10 +1,11 @@
 import React from 'react'
-import { Box, Container, Grid, Paper } from '@mui/material'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
+import { Box, Grid, Paper } from '@mui/material'
+import { Button, DialogActions, DialogContent, DialogContentText, TextField } from '@mui/material'
 import { Form, Formik } from 'formik';
 import { FeedBackService } from '../models/feedback/service';
 import { FeedBack } from '../models/feedback/feedback';
 import Typography from '@mui/material/Typography';
+
 
 
 
@@ -16,8 +17,8 @@ function FeedbackPage() {
     feedback.email = values.email
     feedback.message = values.message
     FeedBackService.create(feedback).then((r: any) => {
+      
     })
-
   }
   return (
     <>
@@ -40,7 +41,7 @@ function FeedbackPage() {
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={12} sm={12}>
                         <Typography variant="h3" align="center">
-                          Feedback  
+                          Feedback
                         </Typography>
                         <DialogContent>
                           <DialogContentText>
@@ -60,6 +61,7 @@ function FeedbackPage() {
 
                             }}
                           />
+                          
                           <TextField
                             required
                             autoFocus
@@ -94,9 +96,6 @@ function FeedbackPage() {
                         <DialogActions>
                           <Button>Cancel</Button>
                           <Button type="submit"
-                            onClick={() =>
-                              console.log(values)
-                            }
                           >Submit</Button>
                         </DialogActions>
                       </Grid>
