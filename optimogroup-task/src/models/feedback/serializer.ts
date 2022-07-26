@@ -14,8 +14,7 @@ export class FeedBackSerializer implements Serializer {
             email: item.email,
             message: item.message,
         }
-        console.log(obj)
-        // return obj
+        return obj
     }
 }
 

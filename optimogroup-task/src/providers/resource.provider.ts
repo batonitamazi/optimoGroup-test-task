@@ -38,6 +38,7 @@ export class ResourceProvider<T extends Resource> {
       results: data.map((item: any) => this.serializer.fromJson(item)),
     };
   }
+  
   private convert(data: any): any {
     return this.serializer.fromJson(data);
   }

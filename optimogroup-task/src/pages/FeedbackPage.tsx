@@ -54,10 +54,11 @@ function FeedbackPage() {
                             value={values.name}
                             type="text"
                             fullWidth
-                            inputProps={
-                              { readOnly: true, }
-                            }
                             variant='standard'
+                            onChange={(event: any) => {
+                              setFieldValue("name", event.target.value)
+
+                            }}
                           />
                           <TextField
                             required

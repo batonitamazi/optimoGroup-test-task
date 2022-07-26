@@ -186,12 +186,12 @@ function EmployeesPage() {
             </Container>
           </Grid>
             <Grid container spacing={4}>
-              {filteredEmployees.map((employee) => {
+              {filteredEmployees.map((employee, index) => {
                 return (
                   <Grid item xs={12} lg={4} md={3}>
                     <Card
                       sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                      key={employee.id}
+                      key={index}
                     >
                       <CardMedia
                         component="img"
@@ -202,31 +202,31 @@ function EmployeesPage() {
                         sx={{ borderRadius: 4 }}
                       />
                       <CardContent sx={{ flexGrow: 1 }}>
-                        <Typography gutterBottom variant="h5" component="h2" key={employee.name}>
+                        <Typography gutterBottom variant="h5" component="h2">
                           {employee.name}
                         </Typography>
-                        <Typography gutterBottom variant="h6" component="h2" color="text.secondary" key={employee.description}>
+                        <Typography gutterBottom variant="h6" component="h2" color="text.secondary">
                           {employee.description}
                         </Typography>
                       </CardContent>
                       <CardActions>
-                        <Typography key={employee.like}>{employee.like}</Typography>
+                        <Typography>{employee.like}</Typography>
                         <IconButton aria-label="add to favorites">
                           <FavoriteIcon sx={{ color: pink[500] }} />
                         </IconButton>
-                        {jobs.filter((job) => job.id === employee.jobId).map((result) => {
+                        {jobs.filter((job) => job.id === employee.jobId).map((result, index) => {
                           return (
                             <>
-                              <WorkIcon sx={{ color: '#212121' }} />
-                              <Typography key={result.id}>{result.name}</Typography>
+                              <WorkIcon sx={{ color: '#212121' }}/>
+                              <Typography key={index}>{result.name}</Typography>
                             </>
                           )
                         })}
-                        {locations.filter((loc) => loc.id === employee.locationId).map((result) => {
+                        {locations.filter((loc) => loc.id === employee.locationId).map((result, index) => {
                           return (
                             <>
                               <LocationOnIcon sx={{ color: pink[500] }} />
-                              <Typography key={result.id}>{result.name}</Typography>
+                              <Typography key={index}>{result.name}</Typography>
                             </>
                           )
                         })}

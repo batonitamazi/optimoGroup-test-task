@@ -63,7 +63,7 @@ function EmployeePage() {
         alignItems="center"
         justifyContent="center"
         sx={{ pt: 10, pb: 7 }} >
-        <Grid container spacing={4} xs={4} >
+        <Grid item spacing={4} xs={4} lg={12} md={6}>
           <Card sx={{ minWidth: 200, minHeight: 200, bgcolor: '#009688' }}
           >
             <CardMedia
