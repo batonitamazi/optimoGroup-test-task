@@ -28,6 +28,7 @@ function EmployeesPage() {
   const [job, setJob] = useState("")
   const [location, setLocation] = useState("")
   const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([])
+  const [active, setActive] = useState(true)
 
 
   const getEmployees = () => {
@@ -46,7 +47,12 @@ function EmployeesPage() {
       setLocations(r.results)
     })
   }
-
+  function resetFilters() {
+    setActive(true)
+    setFilteredEmployees(employees)
+    setJob("")
+    setLocation("")
+  }
   function filterJob(event: any) {
     event.preventDefault();
     const jobsValue = jobs.findIndex(job => event.target.value === job.name) + 1;
@@ -56,6 +62,7 @@ function EmployeesPage() {
         return (employee.jobId === jobsValue)
       })
     )
+    setActive(false)
   }
 
   function filterLocation(event: any) {
@@ -67,6 +74,7 @@ function EmployeesPage() {
         return (employee.locationId === locationsValue)
       })
     )
+    setActive(false)
   }
 
   function handleSort(e: any) {
@@ -129,61 +137,65 @@ function EmployeesPage() {
                 spacing={2}
                 justifyContent="center"
               >
-                <Button sx={{bgcolor: '#009688'}}variant="contained" onClick={() => navigate('/feedback')}>Individual Feedback</Button>
-                <Button sx={{color: '#009688'}} variant="outlined" onClick={() => navigate('/')}>MainPage</Button>
+                <Button sx={{ bgcolor: '#009688' }} variant="contained" onClick={() => navigate('/feedback')}>Individual Feedback</Button>
+                <Button sx={{ color: '#009688' }} variant="outlined" onClick={() => navigate('/')}>MainPage</Button>
               </Stack>
             </Container>
           </Box>
-          
+
           <Container sx={{ py: 8 }} maxWidth="lg">
-          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-            <Container
-              sx={{
-                my: 8,
-                mx: 4,
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-evenly'
-              }}
-            >
-              <Button onClick={handleSort} sx={{ color: '#212121' }}>
-                {sortAsc ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-                <SortIcon />
-                sort
-              </Button>
-                <TextField
-                  id="outlined-select-job"
-                  select
-                  sx={{ color: '#fff3e0', mt: 2 }}
-                  label="job"
-                  value={job}
-                  onChange={filterJob}
-                  helperText="Filter by job position"
+            <Grid item xs={12} sm={3} md={5} component={Paper} elevation={6} square>
+                <Container
+                  sx={{
+                    my: 8,
+                    mx: 4,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-around'
+                  }}
                 >
-                  {jobs.map((option) => (
-                    <MenuItem key={option.id} value={option.name}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
-                  id="outlined-select-location"
-                  select
-                  sx={{ color: '#fff3e0', mt: 2 }}
-                  label="location"
-                  value={location}
-                  onChange={filterLocation}
-                  helperText="Filter by Location"
-                >
-                  {locations.map((opt) => (
-                    <MenuItem key={opt.id} value={opt.name}>
-                      {opt.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
-            </Container>
-          </Grid>
+                  <Button onClick={handleSort} sx={{ color: '#212121' }}>
+                    {sortAsc ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+                    <SortIcon />
+                    sort
+                  </Button>
+                  <TextField
+                    id="outlined-select-job"
+                    select
+                    sx={{ color: '#fff3e0', mt: 2 }}
+                    label="job"
+                    value={job}
+                    onChange={filterJob}
+                    helperText="Filter by job position"
+                  >
+                    {jobs.map((option) => (
+                      <MenuItem key={option.id} value={option.name}>
+                        {option.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <TextField
+                    id="outlined-select-location"
+                    select
+                    sx={{ color: '#fff3e0', mt: 2 }}
+                    label="location"
+                    value={location}
+                    onChange={filterLocation}
+                    helperText="Filter by Location"
+                  >
+                    {locations.map((opt) => (
+                      <MenuItem key={opt.id} value={opt.name}>
+                        {opt.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <Button variant="outlined" disabled={active} onClick={resetFilters}>
+                    Reset Filters
+                  </Button>
+
+                </Container>
+              </Grid>
             <Grid container spacing={4}>
               {filteredEmployees.map((employee, index) => {
                 return (
@@ -216,7 +228,7 @@ function EmployeesPage() {
                         {jobs.filter((job) => job.id === employee.jobId).map((result, index) => {
                           return (
                             <>
-                              <WorkIcon sx={{ color: '#212121' }}/>
+                              <WorkIcon sx={{ color: '#212121' }} />
                               <Typography key={index}>{result.name}</Typography>
                             </>
                           )
@@ -229,7 +241,7 @@ function EmployeesPage() {
                             </>
                           )
                         })}
-                        <Button variant="contained" sx={{bgcolor: '#009688' }} size="small" onClick={()=>navigate(`${employee.id}`)}>View</Button>
+                        <Button variant="contained" sx={{ bgcolor: '#009688' }} size="small" onClick={() => navigate(`${employee.id}`)}>View</Button>
                       </CardActions>
                     </Card>
                   </Grid>

@@ -53,10 +53,13 @@ function FeedBackForm(props: feedbackFormProps) {
                                     value={values.name}
                                     type="text"
                                     fullWidth
-                                    onChange={(event: any) => {
-                                        setFieldValue("name", event.target.value)
+                                    // onChange={(event: any) => {
+                                    //     setFieldValue("name", event.target.value)
 
-                                    }}
+                                    // }}
+                                    InputProps={{
+                                        readOnly: true,
+                                      }}
                                     variant='standard'
                                 />
                                 <TextField
