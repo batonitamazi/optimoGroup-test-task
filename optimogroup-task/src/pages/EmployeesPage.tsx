@@ -26,6 +26,8 @@ function EmployeesPage() {
   const [jobs, setJobs] = useState<Job[]>([])
   const [locations, setLocations] = useState<Locations[]>([])
   const [sortAsc, setSortAsc] = useState(false)
+  const [job, setJob] = useState("")
+  const [location, setLocation] = useState("")
   const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([])
 
 
@@ -49,6 +51,7 @@ function EmployeesPage() {
   function filterJob(event: any) {
     event.preventDefault();
     const jobsValue = jobs.findIndex(job => event.target.value === job.name) + 1;
+    setJob(event.target.value)
     setFilteredEmployees(
       filteredEmployees.filter((employee) => {
         return (employee.jobId === jobsValue)
@@ -59,6 +62,7 @@ function EmployeesPage() {
   function filterLocation(event: any) {
     event.preventDefault();
     const locationsValue = locations.findIndex(loc => event.target.value === loc.name) + 1;
+    setLocation(event.target.value)
     setFilteredEmployees(
       filteredEmployees.filter((employee) => {
         return (employee.locationId === locationsValue)
@@ -150,11 +154,11 @@ function EmployeesPage() {
                 sort
               </Button>
                 <TextField
-                  id="outlined-select-currency"
+                  id="outlined-select-job"
                   select
                   sx={{ color: '#fff3e0', mt: 2 }}
-                  label="Location"
-                  value={jobs}
+                  label="job"
+                  value={job}
                   onChange={filterJob}
                   helperText="Filter by job position"
                 >
@@ -165,11 +169,11 @@ function EmployeesPage() {
                   ))}
                 </TextField>
                 <TextField
-                  id="outlined-select-currency"
+                  id="outlined-select-location"
                   select
                   sx={{ color: '#fff3e0', mt: 2 }}
-                  label="Job"
-                  value={locations}
+                  label="location"
+                  value={location}
                   onChange={filterLocation}
                   helperText="Filter by Location"
                 >

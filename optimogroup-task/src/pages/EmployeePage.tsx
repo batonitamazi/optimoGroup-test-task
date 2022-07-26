@@ -14,6 +14,10 @@ import FeedBackForm from '../components/feedbackForm';
 import { FeedBack } from '../models/feedback/feedback';
 import WorkIcon from '@mui/icons-material/Work';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { jobService } from '../models/job/service';
+import { locationService } from '../models/location/service';
+import { Job } from '../models/job/Job';
+import { Locations } from '../models/location/Location';
 
 
 
@@ -21,6 +25,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 function EmployeePage() {
   let { id }: any = useParams();
   const [employee, setEmployee] = useState<Employee | any>()
+  const [jobs, setJobs] = useState<Job[]>([])
+  const [locations, setLocations] = useState<Locations[]>([])
   const [open, setOpen] = useState(false);
 
   const loadEmployee = (id: Number) => {
@@ -28,9 +34,20 @@ function EmployeePage() {
       setEmployee(response)
     })
   }
-
+  const getJobs = () => {
+    jobService.list().then((r: any) => {
+      setJobs(r.results)
+    })
+  }
+  const getLocations = () => {
+    locationService.list().then((r: any) => {
+      setLocations(r.results)
+    })
+  }
   useEffect(() => {
     loadEmployee(id)
+    getJobs();
+    getLocations();
   }, [])
   return (
     <>
@@ -41,68 +58,77 @@ function EmployeePage() {
           handleDialog={(bool: any) => setOpen(bool)}
         />
       </Grid>
-      <Box sx={{ pb: 7, pt: 7 }}>
-        <Grid container spacing={4} >
-          
-              <Grid item xs={4} >
-                <Card sx={{ minWidth: 100, minHeight: 200 }}
-                >
-                  <CardMedia
-                    component="img"
-                    height="500"
-                    image={employee?.avatar}
-                    alt="Paella dish"
-                    sx={{ cursor: 'pointer' }}
-                  />
+      <Grid container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ pt: 10, pb: 7 }} >
+        <Grid container spacing={4} xs={4} >
+          <Card sx={{ minWidth: 200, minHeight: 200, bgcolor: '#009688' }}
+          >
+            <CardMedia
+              component="img"
+              height="500"
+              width="300"
+              image={employee?.avatar}
+              alt="Paella dish"
+            />
 
-                  <CardContent >
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                      {employee?.name}
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      {employee?.description}
-                    </Typography>
+            <CardContent >
+              <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                {employee?.name}
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                {employee?.description}
+              </Typography>
 
-                  </CardContent>
-                  <CardActions>
-                    <Typography> {employee?.like}</Typography>
+            </CardContent>
 
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon sx={{ color: pink[500] }} />
-                    </IconButton>
+            <CardActions>
+              <Grid container
+                direction="row"
+                alignItems="center"
+                justifyContent="space-evenly">
+                <Typography> {employee?.like}
+                  <IconButton aria-label="add to favorites">
+                    <FavoriteIcon sx={{ color: pink[500] }} />
+                  </IconButton>
+                </Typography>
 
-                    {/* {jobs.filter((job) => job.id === employee.jobId).map((result) => {
-                      return (
-                        <>
-                          <WorkIcon color="primary" />
-                          <Typography key={result.id}>{result.name}</Typography>
-                        </>
-                      )
-                    })}
-                    {locations.filter((loc) => loc.id === employee.locationId).map((result) => {
-                      return (
-                        <>
-                          <LocationOnIcon color="action" />
-                          <Typography key={result.id}>{result.name}</Typography>
-                        </>
-                      )
-                    })} */}
-                    <Button
-                      onClick={() => {
-                        setOpen(true);
-                      }}
-                    ><FeedbackIcon /></Button>
-
-                  </CardActions>
-                </Card>
+                {jobs.filter((job) => job.id === employee?.jobId).map((result) => {
+                  console.log(result.name)
+                  return (
+                    <>
+                      <Typography key={result.id}>{result.name}</Typography>
+                      <WorkIcon color="primary" sx={{ color: '#212121' }} />
+                    </>
+                  )
+                })}
+                {locations.filter((loc) => loc.id === employee?.locationId).map((result) => {
+                  return (
+                    <>
+                      <LocationOnIcon color="action"sx={{ color: pink[500] }} />
+                      <Typography key={result.id}>{result.name}</Typography>
+                    </>
+                  )
+                })}
+                <Button
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                  variant="contained"
+                  sx={{bgcolor: '#009688'}}
+                >Feedback<FeedbackIcon /></Button>
               </Grid>
+            </CardActions>
+          </Card>
         </Grid>
-      </Box>
+      </Grid >
     </>
-      
-    
-    
-      
+
+
+
+
   )
 }
 

@@ -28,7 +28,7 @@ function MainPage() {
             paddingBottom: '30px',
           }}>
             Hire professionals who will help your business make 10X your
-            previous income. With over 5years experience in Marketing & Business
+            previous income. With over 5 years experience in Development & Business
             strategy, we are your best client.
           </Typography>
           <Button
